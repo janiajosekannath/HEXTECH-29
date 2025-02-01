@@ -3,135 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #ff9999, #66b3ff);
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .header {
-            text-align: center;
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 50px;
-            border-radius: 10px;
-        }
-        .header img {
-            width: 100px;
-            height: auto;
-        }
-        .header h1 {
-            font-size: 3em;
-            margin: 20px 0 10px;
-        }
-        .header p {
-            font-size: 1.2em;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <img src="logo.png" alt="Book Store Logo">
-        <h1>Welcome to the Book Store</h1>
-        <p>Your one-stop shop for all your book needs! Discover a world of literature, from bestsellers to hidden gems. Enjoy a seamless shopping experience with our easy-to-use app.</p>
-    </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Modern Book Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f0f2f5;
+            perspective: 1000px;
         }
 
-        .login-box {
-            background-color: white;
+        .container {
+            width: 100%;
+            max-width: 1200px;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
         }
 
-        h2 {
+        /* Welcome Section Styles */
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .welcome-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 60px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .welcome-card h1 {
+            font-size: 2.5em;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .welcome-card p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Login Form Styles */
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateZ(20px);
+        }
+
+        .login-container h2 {
             color: #333;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            position: relative;
+        }
+
+        .login-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            border-radius: 2px;
         }
 
         .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .input-group input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            padding: 15px 15px 15px 45px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
 
         .input-group input:focus {
+            background: #fff;
+            box-shadow: 0 0 0 2px #667eea;
             outline: none;
-            border-color: #4CAF50;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .input-group input:focus + i {
+            color: #667eea;
         }
 
         .login-button {
             width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .login-button:hover {
-            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .welcome-card, .login-container {
+                padding: 30px;
+                margin: 10px;
+            }
+
+            .welcome-card h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-box">
-        <h2>Login</h2>
-        <form>
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="welcome-card">
+            <div class="logo-container">
+                <img src="/api/placeholder/120/120" alt="Book Store Logo">
             </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit" class="login-button">Login</button>
-        </form>
+            <h1>Welcome to MITS Refurbished Finds</h1>
+            <p>Find and sell second-hand treasures on MITS Refurbished Finds. Discover affordable textbooks, PYQs, Materials and many more from fellow students. Join our sustainable community and save money on campus essentials today!</p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="login-container">
+            <h2>Sign In</h2>
+            <form>
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
+       
+
+
+      
+               
