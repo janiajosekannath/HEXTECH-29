@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textbook Selector</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body style="background-color: #f0f0f0;">
+    <div class="container">
+        <h2>Select Semester and Subject</h2>
+        <label for="semester">Semester:</label>
+        <select id="semester">
+            <option value="">Select Semester</option>
+            <option value="sem1">Semester 1</option>
+            <option value="sem2">Semester 2</option>
+            <option value="sem3">Semester 3</option>
+            <option value="sem4">Semester 4</option>
+            <option value="sem5">Semester 5</option>
+            <option value="sem6">Semester 6</option>
+            <option value="sem7">Semester 7</option>
+            <option value="sem8">Semester 8</option>
+        </select>
+
+        <label for="subject">Subject:</label>
+        <select id="subject">
+            <option value="">Select Subject</option>
+            <!-- Subjects will be populated based on semester selection -->
+        </select>
+
+        <h3>Textbook List</h3>
+        <ul id="textbook-list">
+            <!-- Textbooks will be displayed here -->
+        </ul>
+
+        <h3>Seller Details</h3>
+        <div id="seller-details">
+            <!-- Seller details will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const subjectsBySemester = {
+            sem1: ["Maths", "Python", "Physics","Electronics/Electrical","Engineering Graphics"],
+            sem2: ["Chemistry", "Programming in C", "Discrete Mathematics","Engineering Mechanics"],
+            sem3: ["Algorithms", "Data Structures", "Robotics","Digital Electronics"],
+            sem4: ["Networks", "Operating Systems", "Database Systems","Computer Architecture"],
+            sem5: ["Machine Learning", "AI", "Data Mining,","Cyber Security"],
+            sem6: ["Web Development", "Mobile Computing", "Cloud Computing"],
+            sem7: ["Software Engineering", "Project Management", "Ethics in IT"],
+            sem8: ["Thesis", "Internship", "Capstone Project"]
+        };
+
+        const textbooksBySubject = {
+            "Maths": ["Calculus by Stewart", "Linear Algebra by Lay"],
+            "Python": ["Learn Python the Hard Way by Zed Shaw", "Python Crash Course by Eric Matthes"],
+            "Physics": ["Fundamentals of Physics by Halliday", "Conceptual Physics by Hewitt"],
+            "Electronics/Electrical": ["Electronics by Millman", "Electrical by Hayt"],
+            "Engineering Graphics": ["Engineering Drawing by Kulkarni", "Engineering Drawing by Shah"],
+            "Chemistry": ["Chemistry by Morrison", "Chemistry by Boyd"],
+            "Programming in C": ["C Programming by Kernighan", "C Programming by Ritchie"],
+            "Discrete Mathematics": ["Discrete Mathematics by Rosen", "Discrete Mathematics by Tremblay"],
+            "Engineering Mechanics": ["Engineering Mechanics by Beer", "Engineering Mechanics by Hibbeler"],
+            "Algorithms": ["Algorithms by Cormen", "Algorithms by Sedgewick"],
+            "Data Structures": ["Data Structures by Sahni", "Data Structures by Horowitz"],
+            "Robotics": ["Robotics by Saeed", "Robotics by Groover"],
+            "Digital Electronics": ["Digital Electronics by Malvino", "Digital Electronics by Floyd"],
+            "Networks": ["Networks by Tanenbaum", "Networks by Forouzan"],
+            "Operating Systems": ["Operating Systems by Galvin", "Operating Systems by Silberschatz"],
+            "Database Systems": ["Database Systems by Elmasri", "Database Systems by Navathe"],
+            "Computer Architecture": ["Computer Architecture by Hennessy", "Computer Architecture by Patterson"],
+            "Machine Learning": ["Machine Learning by Mitchell", "Machine Learning by Alpaydin"],
+            "AI": ["Artificial Intelligence by Russell", "Artificial Intelligence by Norvig"],
+            "Data Mining": ["Data Mining by Han", "Data Mining by Tan"],
+            "Cyber Security": ["Cyber Security by Stallings", "Cyber Security by Schneier"],
+            "Web Development": ["Web Development by Duckett", "Web Development by McFarland"],
+            "Mobile Computing": ["Mobile Computing by Asoke", "Mobile Computing by Jochen"],
+            "Cloud Computing": ["Cloud Computing by Rajkumar", "Cloud Computing by Thomas"],
+            "Software Engineering": ["Software Engineering by Pressman", "Software Engineering by Sommerville"],
+            "Project Management": ["Project Management by Pinto", "Project Management by Schwalbe"],
+            "Ethics in IT": ["Ethics in IT by Reynolds", "Ethics in IT by Quinn"],
+            "Thesis": ["Thesis by Berry", "Thesis by Davis"],
+            "Internship": ["Internship by Smith", "Internship by Wilson"],
+            "Capstone Project": ["Capstone Project by Brown", "Capstone Project by Garcia"]
+
+        };
+
+        const sellerDetails = {
+            "Calculus by Stewart": {name: "Amit Sharma", contact: "+91-9876543210", semester: "Semester 6", department: "Mathematics"},
+            "Linear Algebra by Lay": {name: "Sita Reddy", contact: "+91-8765432109", semester: "Semester 6", department: "Mathematics"},
+            "Learn Python the Hard Way by Zed Shaw": {name: "Arjun Kumar", contact: "+91-7654321098", semester: "Semester 7", department: "Computer Science"},
+            "Python Crash Course by Eric Matthes": {name: "Priya Mehta", contact: "+91-6543210987", semester: "Semester 7", department: "Computer Science"},
+            "Fundamentals of Physics by Halliday": {name: "Rahul Singh", contact: "+91-5432109876", semester: "Semester 8", department: "Physics"},
+            "Conceptual Physics by Hewitt": {name: "Nisha Kapoor", contact: "+91-4321098765", semester: "Semester 8", department: "Physics"},
+            "Electronics by Millman": {name: "Vijay Verma", contact: "+91-3210987654", semester: "Semester 6", department: "Electronics"},
+            "Electrical by Hayt": {name: "Sunil Joshi", contact: "+91-2109876543", semester: "Semester 7", department: "Electrical"},
+            "Engineering Drawing by Kulkarni": {name: "Ravi Desai", contact: "+91-1098765432", semester: "Semester 8", department: "Mechanical"},
+            "Engineering Drawing by Shah": {name: "Pooja Iyer", contact: "+91-1987654321", semester: "Semester 8", department: "Mechanical"},
+            "Chemistry by Morrison": {name: "Lakshmi Patel", contact: "+91-9876501234", semester: "Semester 6", department: "Chemistry"},
+            "Chemistry by Boyd": {name: "Manoj Aggarwal", contact: "+91-8765432109", semester: "Semester 6", department: "Chemistry"},
+            "C Programming by Kernighan": {name: "Sonal Gupta", contact: "+91-7654321098", semester: "Semester 7", department: "Computer Science"},
+            "C Programming by Ritchie": {name: "Kiran Bhat", contact: "+91-6543210987", semester: "Semester 7", department: "Computer Science"},
+            "Discrete Mathematics by Rosen": {name: "Rohit Saxena", contact: "+91-5432109876", semester: "Semester 8", department: "Mathematics"},
+            "Discrete Mathematics by Tremblay": {name: "Anita Jain", contact: "+91-4321098765", semester: "Semester 8", department: "Mathematics"},
+            "Engineering Mechanics by Beer": {name: "Vikas Nair", contact: "+91-3210987654", semester: "Semester 6", department: "Mechanical"},
+            "Engineering Mechanics by Hibbeler": {name: "Divya Singh", contact: "+91-2109876543", semester: "Semester 7", department: "Mechanical"},
+            "Algorithms by Cormen": {name: "Alok Shetty", contact: "+91-1098765432", semester: "Semester 8", department: "Computer Science"},
+            "Algorithms by Sedgewick": {name: "Rina Rao", contact: "+91-1987654321", semester: "Semester 8", department: "Computer Science"},
+            "Data Structures by Sahni": {name: "Mohan Lal", contact: "+91-9876501234", semester: "Semester 6", department: "Computer Science"},
+            "Data Structures by Horowitz": {name: "Kavita Bose", contact: "+91-8765432109", semester: "Semester 7", department: "Computer Science"},
+            "Robotics by Saeed": {name: "Deepak Chawla", contact: "+91-7654321098", semester: "Semester 8", department: "Electronics"},
+            "Robotics by Groover": {name: "Asha Das", contact: "+91-6543210987", semester: "Semester 8", department: "Electronics"},
+            "Digital Electronics by Malvino": {name: "Rakesh Jha", contact: "+91-5432109876", semester: "Semester 6", department: "Electronics"},
+            "Digital Electronics by Floyd": {name: "Meera Raju", contact: "+91-4321098765", semester: "Semester 6", department: "Electronics"},
+            "Networks by Tanenbaum": {name: "Naveen Ghosh", contact: "+91-3210987654", semester: "Semester 7", department: "Electronics"},
+            "Networks by Forouzan": {name: "Leena Singh", contact: "+91-2109876543", semester: "Semester 7", department: "Electronics"},
+            "Operating Systems by Galvin": {name: "Arvind Menon", contact: "+91-1098765432", semester: "Semester 8", department: "Electronics"},
+            "Operating Systems by Silberschatz": {name: "Rekha Pandey", contact: "+91-1987654321", semester: "Semester 8", department: "Electronics"},
+            "Database Systems by Elmasri": {name: "Parth Patil", contact: "+91-9876501234", semester: "Semester 6", department: "Electronics"},
+            "Database Systems by Navathe": {name: "Ruchi Rani", contact: "+91-8765432109", semester: "Semester 7", department: "Electronics"},
+            "Computer Architecture by Hennessy": {name: "Sanjay Sinha", contact: "+91-7654321098", semester: "Semester 8", department: "Electronics"},
+            "Computer Architecture by Patterson": {name: "Pallavi Nair", contact: "+91-6543210987", semester: "Semester 8", department: "Electronics"},
+            "Machine Learning by Mitchell": {name: "Neha Deshmukh", contact: "+91-5432109876", semester: "Semester 6", department: "Electronics"},
+            "Machine Learning by Alpaydin": {name: "Tarun Iyer", contact: "+91-4321098765", semester: "Semester 7", department: "Electronics"},
+            "Artificial Intelligence by Russell": {name: "Bhavna Kapoor", contact: "+91-3210987654", semester: "Semester 8", department: "Electronics"},
+            "Artificial Intelligence by Norvig": {name: "Pranav Joshi", contact: "+91-2109876543", semester: "Semester 8", department: "Electronics"},
+            "Data Mining by Han": {name: "Manisha Dutt", contact: "+91-1098765432", semester: "Semester 6", department: "Electronics"},
+            "Data Mining by Tan": {name: "Ajay Pandey", contact: "+91-1987654321", semester: "Semester 6", department: "Electronics"},
+            "Cyber Security by Stallings": {name: "Keshav Bhat", contact: "+91-9876501234", semester: "Semester 7", department: "Electronics"},
+            "Cyber Security by Schneier": {name: "Varsha Iyer", contact: "+91-8765432109", semester: "Semester 7", department: "Electronics"},
+            "Web Development by Duckett": {name: "Gaurav Rao", contact: "+91-7654321098", semester: "Semester 8", department: "Electronics"},
+            "Web Development by McFarland": {name: "Neeraj Mehta", contact: "+91-6543210987", semester: "Semester 8", department: "Electronics"},
+            "Mobile Computing by Asoke": {name: "Smita Desai", contact: "+91-5432109876", semester: "Semester 6", department: "Electronics"},
+            "Mobile Computing by Jochen": {name: "Amit Sen", contact: "+91-4321098765", semester: "Semester 7", department: "Electronics"},
+            "Cloud Computing by Rajkumar": {name: "Shilpa Agarwal", contact: "+91-3210987654", semester: "Semester 8", department: "Electronics"},
+            "Cloud Computing by Thomas": {name: "Raman Shukla", contact: "+91-2109876543", semester: "Semester 8", department: "Electronics"},
+            "Software Engineering by Pressman": {name: "Anjali Sharma", contact: "+91-1098765432", semester: "Semester 6", department: "Electronics"},
+            "Software Engineering by Sommerville": {name: "Rajesh Verma", contact: "+91-1987654321", semester: "Semester 6", department: "Electronics"},
+            "Project Management by Pinto": {name: "Ravi Kumar", contact: "+91-9876543210", semester: "Semester 6", department: "Computer Science"},
+            "Project Management by Schwalbe": {name: "Sunil Sharma", contact: "+91-8765432109", semester: "Semester 7", department: "Computer Science"},
+            "Ethics in IT by Reynolds": {name: "Amit Verma", contact: "+91-7654321098", semester: "Semester 8", department: "Electrical"},
+            "Ethics in IT by Quinn": {name: "Priya Rao", contact: "+91-6543210987", semester: "Semester 6", department: "Electrical"},
+            "Thesis by Berry": {name: "Neha Gupta", contact: "+91-5432109876", semester: "Semester 7", department: "Cyber"},
+            "Thesis by Davis": {name: "Anil Patel", contact: "+91-4321098765", semester: "Semester 8", department: "AIDS"},
+            "Internship by Smith": {name: "Rohit Joshi", contact: "+91-3210987654", semester: "Semester 6", department: "AIDS"},
+            "Internship by Wilson": {name: "Sita Nair", contact: "+91-2109876543", semester: "Semester 7", department: "Computer Science"},
+            "Capstone Project by Brown": {name: "Lakshmi Singh", contact: "+91-1098765432", semester: "Semester 8", department: "Cyber"},
+            "Capstone Project by Garcia": {name: "Arjun Mehta", contact: "+91-1987654321", semester: "Semester 6", department: "Electronics"}
+        };
+        function resetNotesAndDetails() {
+            document.getElementById('textbook-list').innerHTML = ''; // Clear notes list
+            document.getElementById('seller-details').innerHTML = ''; // Clear seller details
+        }
+        document.getElementById('semester').addEventListener('change', function() {
+            const semester = this.value;
+            const subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Reset subjects dropdown
+
+            if (subjectsBySemester[semester]) {
+                subjectsBySemester[semester].forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById('subject').addEventListener('change', function() {
+            resetNotesAndDetails();
+            const subject = this.value;
+            const textbookList = document.getElementById('textbook-list');
+            textbookList.innerHTML = ''; // Reset textbook list
+
+            if (textbooksBySubject[subject]) {
+                textbooksBySubject[subject].forEach(textbook => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = "#seller-details";
+                    a.textContent = textbook;
+                    a.addEventListener('click', function() {
+                        const details = sellerDetails[textbook];
+                        const sellerDetailsDiv = document.getElementById('seller-details');
+                        sellerDetailsDiv.innerHTML = `
+                            <p><strong>Name:</strong> ${details.name}</p>
+                            <p><strong>Contact Number:</strong> ${details.contact}</p>
+                            <p><strong>Semester:</strong> ${details.semester}</p>
+                            <p><strong>Department:</strong> ${details.department}</p>
+                        `;
+                    });
+                    li.appendChild(a);
+                    textbookList.appendChild(li);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
