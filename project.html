@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textbook Selector</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body style="background-color: #f0f0f0;">
+    <div class="container">
+        <h2>Select Semester and Subject</h2>
+        <label for="semester">Semester:</label>
+        <select id="semester">
+            <option value="">Select Semester</option>
+            <option value="sem5">Semester 5</option>
+            <option value="sem6">Semester 6</option>
+            <option value="sem7">Semester 7</option>
+            <option value="sem8">Semester 8</option>
+        </select>
+
+        <label for="subject">Subject:</label>
+        <select id="subject">
+            <option value="">Select Subject</option>
+            <!-- Subjects will be populated based on semester selection -->
+        </select>
+
+        <h3>Project Name</h3>
+        <ul id="textbook-list">
+            <!-- Textbooks will be displayed here -->
+        </ul>
+
+        <h3>Seller Details</h3>
+        <div id="seller-details">
+            <!-- Seller details will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const subjectsBySemester = {
+            sem5: ["Machine Learning", "AI", "Cyber Security"],
+            sem6: ["Web Development", "Mobile Computing", "Cloud Computing"],
+            sem7: ["Data Mining", "Ethics in IT"],
+            sem8: ["IOT", "Deep Learning", "Neural Networks"]
+        };
+
+        const textbooksBySubject = {
+            "Machine Learning": ["Machine Learning Project"],
+            "AI": ["Artificial Intelligence Project"],
+            "Data Mining": ["Data Mining Project"],
+            "Cyber Security": ["Cyber Security Project"],
+            "Web Development": ["Web Development Project"],
+            "Mobile Computing": ["Mobile Computing Project"],
+            "Cloud Computing": ["Cloud Computing Project"],
+            "IOT": ["Internet of Things Project"],
+            "Deep Learning": ["Deep Learning Project"],
+            "Ethics in IT": ["Ethics in IT Project"],
+            "Neural Networks": ["Neural Networks Project"]
+        };
+        const sellerDetails = {
+            "Machine Learning Project": {name: "Rina Rao", contact: "+91-2109876543", semester: "Semester 8", department: "Computer Science"},
+            "Artificial Intelligence Project": {name: "Mohan Lal", contact: "+91-1098765432", semester: "Semester 6", department: "Computer Science"},
+            "Data Mining Project": {name: "Kavita Bose", contact: "+91-1987654321", semester: "Semester 7", department: "Cyber"},
+            "Cyber Security Project": {name: "Deepak Chawla", contact: "+91-9876501234", semester: "Semester 8", department: "Cyber"},
+            "Web Development Project": {name: "Asha Das", contact: "+91-8765432109", semester: "Semester 6", department: "Computer Science"},
+            "Mobile Computing Project": {name: "Rakesh Jha", contact: "+91-7654321098", semester: "Semester 7", department: "AIDS"},
+            "Cloud Computing Project": {name: "Meera Raju", contact: "+91-6543210987", semester: "Semester 8", department: "AIDS"},
+            "Internet of Things Project": {name: "Naveen Ghosh", contact: "+91-5432109876", semester: "Semester 6", department: "Electrical"},
+            "Deep Learning Project": {name: "Leena Singh", contact: "+91-4321098765", semester: "Semester 7", department: "Computer Science"},
+            "Ethics in IT Project": {name: "Arvind Menon", contact: "+91-3210987654", semester: "Semester 8", department: "Computer Science"},
+            "Neural Networks Project": {name: "Rekha Pandey", contact: "+91-2109876543", semester: "Semester 6", department: "Cyber"}
+        };
+        function resetNotesAndDetails() {
+            document.getElementById('textbook-list').innerHTML = ''; // Clear notes list
+            document.getElementById('seller-details').innerHTML = ''; // Clear seller details
+        }
+        document.getElementById('semester').addEventListener('change', function() {
+            const semester = this.value;
+            const subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Reset subjects dropdown
+
+            if (subjectsBySemester[semester]) {
+                subjectsBySemester[semester].forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById('subject').addEventListener('change', function() {
+            resetNotesAndDetails();
+            const subject = this.value;
+            const textbookList = document.getElementById('textbook-list');
+            textbookList.innerHTML = ''; // Reset textbook list
+
+            if (textbooksBySubject[subject]) {
+                textbooksBySubject[subject].forEach(textbook => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = "#seller-details";
+                    a.textContent = textbook;
+                    a.addEventListener('click', function() {
+                        const details = sellerDetails[textbook];
+                        const sellerDetailsDiv = document.getElementById('seller-details');
+                        sellerDetailsDiv.innerHTML = `
+                            <p><strong>Name:</strong> ${details.name}</p>
+                            <p><strong>Contact Number:</strong> ${details.contact}</p>
+                            <p><strong>Semester:</strong> ${details.semester}</p>
+                            <p><strong>Department:</strong> ${details.department}</p>
+                        `;
+                    });
+                    li.appendChild(a);
+                    textbookList.appendChild(li);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

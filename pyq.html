@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textbook Selector</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body style="background-color: #f0f0f0;">
+    <div class="container">
+        <h2>Select Semester and Subject</h2>
+        <label for="semester">Semester:</label>
+        <select id="semester">
+            <option value="">Select Semester</option>
+            <option value="sem1">Semester 1</option>
+            <option value="sem2">Semester 2</option>
+            <option value="sem3">Semester 3</option>
+            <option value="sem4">Semester 4</option>
+            <option value="sem5">Semester 5</option>
+            <option value="sem6">Semester 6</option>
+            <option value="sem7">Semester 7</option>
+            <option value="sem8">Semester 8</option>
+        </select>
+
+        <label for="subject">Subject:</label>
+        <select id="subject">
+            <option value="">Select Subject</option>
+            <!-- Subjects will be populated based on semester selection -->
+        </select>
+
+        <h3>Previous Year Question Papers</h3>
+        <ul id="textbook-list">
+            <!-- Textbooks will be displayed here -->
+        </ul>
+
+        <h3>Seller Details</h3>
+        <div id="seller-details">
+            <!-- Seller details will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const subjectsBySemester = {
+            sem1: ["Maths", "Python", "Physics","Electronics/Electrical","Engineering Graphics"],
+            sem2: ["Chemistry", "Programming in C", "Discrete Mathematics","Engineering Mechanics"],
+            sem3: ["Algorithms", "Data Structures", "Robotics","Digital Electronics"],
+            sem4: ["Networks", "Operating Systems", "Database Systems","Computer Architecture"],
+            sem5: ["Machine Learning", "AI", "Data Mining","Cyber Security"],
+            sem6: ["Web Development", "Mobile Computing", "Cloud Computing"],
+            sem7: ["Software Engineering", "Project Management", "Ethics in IT"],
+            sem8: ["Thesis", "Internship", "Capstone Project"]
+        };
+
+        const textbooksBySubject = {
+            
+            "Maths": ["Maths PYQ 2019-2024"],
+            "Python": ["Python PYQ 2020-2025"],
+            "Physics": ["Physics PYQ 2019-2024"],
+            "Electronics/Electrical": ["Electrical PYQ 2020-2025", "Electronics PYQ 2019-2024"],
+            "Engineering Graphics": ["Engineering Graphics PYQ 2020-2025"],
+            "Chemistry": ["Chemistry PYQ 2019-2024"],
+            "Programming in C": ["Programming in C PYQ 2020-2025"],
+            "Discrete Mathematics": ["Discrete Maths PYQ 2019-2024"],
+            "Engineering Mechanics": ["Engineering Mechanics PYQ 2020-2025"],
+            "Algorithms": ["Algorithms PYQ 2019-2024"],
+            "Data Structures": ["Data Structures PYQ 2020-2025"],
+            "Robotics": ["Robotics PYQ 2019-2024"],
+            "Digital Electronics": ["Digital Electronics PYQ 2020-2025"],
+            "Networks": ["Networks PYQ 2019-2024"],
+            "Operating Systems": ["Operating Systems PYQ 2020-2025"],
+            "Database Systems": ["Database Systems PYQ 2019-2024"],
+            "Computer Architecture": ["Computer Architecture PYQ 2020-2025"],
+            "Machine Learning": ["Machine Learning PYQ 2019-2024"],
+            "AI": ["Artificial Intelligence PYQ 2020-2025"],
+            "Data Mining": ["Data Mining PYQ 2019-2024"],
+            "Cyber Security": ["Cyber Security PYQ 2020-2025"],
+            "Web Development": ["Web Development PYQ 2019-2024"],
+            "Mobile Computing": ["Mobile Computing PYQ 2020-2025"],
+            "Cloud Computing": ["Cloud Computing PYQ 2019-2024"],
+            "Software Engineering": ["Software Engineering PYQ 2020-2025"],
+            "Project Management": ["Project Management PYQ 2019-2024"],
+            "Ethics in IT": ["Ethics in IT PYQ 2020-2025"],
+            "Thesis": ["Thesis PYQ 2019-2024"],
+            "Internship": ["Internship PYQ 2020-2025"],
+            "Capstone Project": ["Capstone Project PYQ 2019-2024"]
+        };
+        const sellerDetails = {
+            "Maths PYQ 2019-2024": {name: "Amit Sharma", contact: "+91-9876543210", semester: "Semester 6", department: "Mathematics"},
+            "Python PYQ 2020-2025": {name: "Sita Reddy", contact: "+91-8765432109", semester: "Semester 6", department: "Mathematics"},
+            "Physics PYQ 2019-2024": {name: "Rahul Singh", contact: "+91-7654321098", semester: "Semester 7", department: "Computer Science"},
+            "Electrical PYQ 2020-2025": {name: "Priya Mehta", contact: "+91-6543210987", semester: "Semester 7", department: "Electrical"},
+            "Electronics PYQ 2019-2024": {name: "Nisha Kapoor", contact: "+91-5432109876", semester: "Semester 8", department: "Physics"},
+            "Engineering Graphics PYQ 2020-2025": {name: "Vijay Verma", contact: "+91-4321098765", semester: "Semester 8", department: "Physics"},
+            "Chemistry PYQ 2019-2024": {name: "Sunil Joshi", contact: "+91-3210987654", semester: "Semester 6", department: "Electronics"},
+            "Programming in C PYQ 2020-2025": {name: "Ravi Desai", contact: "+91-2109876543", semester: "Semester 7", department: "Electrical"},
+            "Discrete Maths PYQ 2019-2024": {name: "Lakshmi Patel", contact: "+91-1098765432", semester: "Semester 8", department: "Mathematics"},
+            "Algorithms PYQ 2019-2024": {name: "Manoj Aggarwal", contact: "+91-1987654321", semester: "Semester 6", department: "Computer Science"},
+            "Data Structures PYQ 2020-2025": {name: "Sonal Gupta", contact: "+91-9876501234", semester: "Semester 7", department: "Computer Science"},
+            "Robotics PYQ 2019-2024": {name: "Kiran Bhat", contact: "+91-8765432109", semester: "Semester 8", department: "AIDS"},
+            "Digital Electronics PYQ 2020-2025": {name: "Rohit Saxena", contact: "+91-7654321098", semester: "Semester 6", department: "AIDS"},
+            "Networks PYQ 2019-2024": {name: "Anita Jain", contact: "+91-6543210987", semester: "Semester 7", department: "Cyber"},
+            "Operating Systems PYQ 2020-2025": {name: "Vikas Nair", contact: "+91-5432109876", semester: "Semester 8", department: "Computer Science"},
+            "Database Systems PYQ 2019-2024": {name: "Divya Singh", contact: "+91-4321098765", semester: "Semester 6", department: "Computer Science"},
+            "Computer Architecture PYQ 2020-2025": {name: "Alok Shetty", contact: "+91-3210987654", semester: "Semester 7", department: "Electrical"},
+            "Machine Learning PYQ 2019-2024": {name: "Rina Rao", contact: "+91-2109876543", semester: "Semester 8", department: "Computer Science"},
+            "Artificial Intelligence PYQ 2020-2025": {name: "Mohan Lal", contact: "+91-1098765432", semester: "Semester 6", department: "Computer Science"},
+            "Data Mining PYQ 2019-2024": {name: "Kavita Bose", contact: "+91-1987654321", semester: "Semester 7", department: "Cyber"},
+            "Cyber Security PYQ 2020-2025": {name: "Deepak Chawla", contact: "+91-9876501234", semester: "Semester 8", department: "Cyber"},
+            "Web Development PYQ 2019-2024": {name: "Asha Das", contact: "+91-8765432109", semester: "Semester 6", department: "Computer Science"},
+            "Mobile Computing PYQ 2020-2025": {name: "Rakesh Jha", contact: "+91-7654321098", semester: "Semester 7", department: "AIDS"},
+            "Cloud Computing PYQ 2019-2024": {name: "Meera Raju", contact: "+91-6543210987", semester: "Semester 8", department: "AIDS"},
+            "Software Engineering PYQ 2020-2025": {name: "Naveen Ghosh", contact: "+91-5432109876", semester: "Semester 6", department: "Electrical"},
+            "Project Management PYQ 2019-2024": {name: "Leena Singh", contact: "+91-4321098765", semester: "Semester 7", department: "Computer Science"},
+            "Ethics in IT PYQ 2020-2025": {name: "Arvind Menon", contact: "+91-3210987654", semester: "Semester 8", department: "Computer Science"},
+            "Thesis PYQ 2019-2024": {name: "Rekha Pandey", contact: "+91-2109876543", semester: "Semester 6", department: "Cyber"},
+            "Internship PYQ 2020-2025": {name: "Parth Patil", contact: "+91-1098765432", semester: "Semester 7", department: "AIDS"},
+            "Capstone Project PYQ 2019-2024": {name: "Ruchi Rani", contact: "+91-1987654321", semester: "Semester 8", department: "Computer Science"}
+        };
+
+        function resetNotesAndDetails() {
+            document.getElementById('textbook-list').innerHTML = ''; // Clear notes list
+            document.getElementById('seller-details').innerHTML = ''; // Clear seller details
+        }
+        document.getElementById('semester').addEventListener('change', function() {
+            const semester = this.value;
+            const subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Reset subjects dropdown
+
+            if (subjectsBySemester[semester]) {
+                subjectsBySemester[semester].forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById('subject').addEventListener('change', function() {
+            resetNotesAndDetails();
+            const subject = this.value;
+            const textbookList = document.getElementById('textbook-list');
+            textbookList.innerHTML = ''; // Reset textbook list
+
+            if (textbooksBySubject[subject]) {
+                textbooksBySubject[subject].forEach(textbook => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = "#seller-details";
+                    a.textContent = textbook;
+                    a.addEventListener('click', function() {
+                        const details = sellerDetails[textbook];
+                        const sellerDetailsDiv = document.getElementById('seller-details');
+                        sellerDetailsDiv.innerHTML = `
+                            <p><strong>Name:</strong> ${details.name}</p>
+                            <p><strong>Contact Number:</strong> ${details.contact}</p>
+                            <p><strong>Semester:</strong> ${details.semester}</p>
+                            <p><strong>Department:</strong> ${details.department}</p>
+                        `;
+                    });
+                    li.appendChild(a);
+                    textbookList.appendChild(li);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textbook Selector</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body style="background-color: #f0f0f0;">
+    <div class="container">
+        <h2>Select Semester and Subject</h2>
+        <label for="semester">Semester:</label>
+        <select id="semester">
+            <option value="">Select Semester</option>
+            <option value="sem1">Semester 1</option>
+            <option value="sem2">Semester 2</option>
+            <option value="sem3">Semester 3</option>
+            <option value="sem4">Semester 4</option>
+            <option value="sem5">Semester 5</option>
+            <option value="sem6">Semester 6</option>
+            <option value="sem7">Semester 7</option>
+            <option value="sem8">Semester 8</option>
+        </select>
+
+        <label for="subject">Subject:</label>
+        <select id="subject">
+            <option value="">Select Subject</option>
+            <!-- Subjects will be populated based on semester selection -->
+        </select>
+
+        <h3>Notes</h3>
+        <ul id="textbook-list">
+            <!-- Textbooks will be displayed here -->
+        </ul>
+
+        <h3>Seller Details</h3>
+        <div id="seller-details">
+            <!-- Seller details will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const subjectsBySemester = {
+            sem1: ["Maths", "Python", "Physics","Electronics/Electrical","Engineering Graphics"],
+            sem2: ["Chemistry", "Programming in C", "Discrete Mathematics","Engineering Mechanics"],
+            sem3: ["Algorithms", "Data Structures", "Robotics","Digital Electronics"],
+            sem4: ["Networks", "Operating Systems", "Database Systems","Computer Architecture"],
+            sem5: ["Machine Learning", "AI", "Data Mining","Cyber Security"],
+            sem6: ["Web Development", "Mobile Computing", "Cloud Computing"],
+            sem7: ["Software Engineering", "Project Management", "Ethics in IT"],
+            sem8: ["Thesis", "Internship", "Capstone Project"]
+        };
+
+        const textbooksBySubject = {
+            "Maths": ["Maths Lecture notes"],
+            "Python": ["Python Lecture notes"],
+            "Physics": ["Physics Lecture notes"],
+            "Electronics/Electrical": ["Electrical Lecture notes","Electronics Lecture notes"],
+            "Engineering Graphics": ["Engineering Graphics Lecture notes"],
+            "Chemistry": ["Chemistry Lecture notes"],
+            "Programming in C": ["Programming in C Lecture notes"],
+            "Discrete Mathematics": ["Discrete Maths Lecture notes"],
+            "Engineering Mechanics": ["Engineering Mechanics Lecture notes"],
+            "Algorithms": ["Algorithms Lecture notes"],
+            "Data Structures": ["Data Structures Lecture notes"],
+            "Robotics": ["Robotics Lecture notes"],
+            "Digital Electronics": ["Digital Electronics Lecture notes"],
+            "Networks": ["Networks Lecture notes"],
+            "Operating Systems": ["Operating Systems Lecture notes"],
+            "Database Systems": ["Database Systems Lecture notes"],
+            "Computer Architecture": ["Computer Architecture Lecture notes"],
+            "Machine Learning": ["Machine Learning Lecture notes"],
+            "AI": ["Artificial Intelligence Lecture Notes"],
+            "Data Mining": ["Data Mining Lecture Notes"],
+            "Cyber Security": ["Cyber Security Lecture Notes"],
+            "Web Development": ["Web Development Lecture Notes"],
+            "Mobile Computing": ["Mobile Computing Lecture Notes"],
+            "Cloud Computing": ["Cloud Computing Lecture Notes"],
+            "Software Engineering": ["Software Engineering Lecture Notes"],
+            "Project Management": ["Project Management Lecture Notes"],
+            "Ethics in IT": ["Ethics in IT Lecture Notes"],
+            "Thesis": ["Thesis Lecture Notes"],
+            "Internship": ["Internship Lecture Notes"],
+            "Capstone Project": ["Capstone Project Lecture Notes"]
+        };
+        const sellerDetails = {
+            "Maths Lecture notes": {name: "Amit Sharma", contact: "+91-9876543210", semester: "Semester 6", department: "Mathematics"},
+            "Python Lecture notes": {name: "Sita Reddy", contact: "+91-8765432109", semester: "Semester 6", department: "Mathematics"},
+            "Physics Lecture notes": {name: "Rahul Singh", contact: "+91-7654321098", semester: "Semester 7", department: "Computer Science"},
+            "Electrical Lecture notes": {name: "Priya Mehta", contact: "+91-6543210987", semester: "Semester 7", department: "Electrical"},
+            "Electronics Lecture notes": {name: "Nisha Kapoor", contact: "+91-5432109876", semester: "Semester 8", department: "Physics"},
+            "Engineering Graphics Lecture notes": {name: "Vijay Verma", contact: "+91-4321098765", semester: "Semester 8", department: "Physics"},
+            "Chemistry Lecture notes": {name: "Sunil Joshi", contact: "+91-3210987654", semester: "Semester 6", department: "Electronics"},
+            "Programming in C Lecture notes": {name: "Ravi Desai", contact: "+91-2109876543", semester: "Semester 7", department: "Electrical"},
+            "Discrete Maths Lecture notes": {name: "Lakshmi Patel", contact: "+91-1098765432", semester: "Semester 8", department: "Mathematics"},
+            "Algorithms Lecture notes": {name: "Manoj Aggarwal", contact: "+91-1987654321", semester: "Semester 6", department: "Computer Science"},
+            "Data Structures Lecture notes": {name: "Sonal Gupta", contact: "+91-9876501234", semester: "Semester 7", department: "Computer Science"},
+            "Robotics Lecture notes": {name: "Kiran Bhat", contact: "+91-8765432109", semester: "Semester 8", department: "AIDS"},
+            "Digital Electronics Lecture notes": {name: "Rohit Saxena", contact: "+91-7654321098", semester: "Semester 6", department: "AIDS"},
+            "Networks Lecture notes": {name: "Anita Jain", contact: "+91-6543210987", semester: "Semester 7", department: "Cyber"},
+            "Operating Systems Lecture notes": {name: "Vikas Nair", contact: "+91-5432109876", semester: "Semester 8", department: "Computer Science"},
+            "Database Systems Lecture notes": {name: "Divya Singh", contact: "+91-4321098765", semester: "Semester 6", department: "Computer Science"},
+            "Computer Architecture Lecture notes": {name: "Alok Shetty", contact: "+91-3210987654", semester: "Semester 7", department: "Electrical"},
+            "Machine Learning Lecture notes": {name: "Rina Rao", contact: "+91-2109876543", semester: "Semester 8", department: "Computer Science"},
+            "Artificial Intelligence Lecture Notes": {name: "Mohan Lal", contact: "+91-1098765432", semester: "Semester 6", department: "Computer Science"},
+            "Data Mining Lecture Notes": {name: "Kavita Bose", contact: "+91-1987654321", semester: "Semester 7", department: "Cyber"},
+            "Cyber Security Lecture Notes": {name: "Deepak Chawla", contact: "+91-9876501234", semester: "Semester 8", department: "Cyber"},
+            "Web Development Lecture Notes": {name: "Asha Das", contact: "+91-8765432109", semester: "Semester 6", department: "Computer Science"},
+            "Mobile Computing Lecture Notes": {name: "Rakesh Jha", contact: "+91-7654321098", semester: "Semester 7", department: "AIDS"},
+            "Cloud Computing Lecture Notes": {name: "Meera Raju", contact: "+91-6543210987", semester: "Semester 8", department: "AIDS"},
+            "Software Engineering Lecture Notes": {name: "Naveen Ghosh", contact: "+91-5432109876", semester: "Semester 6", department: "Electrical"},
+            "Project Management Lecture Notes": {name: "Leena Singh", contact: "+91-4321098765", semester: "Semester 7", department: "Computer Science"},
+            "Ethics in IT Lecture Notes": {name: "Arvind Menon", contact: "+91-3210987654", semester: "Semester 8", department: "Computer Science"},
+            "Thesis Lecture Notes": {name: "Rekha Pandey", contact: "+91-2109876543", semester: "Semester 6", department: "Cyber"},
+            "Internship Lecture Notes": {name: "Parth Patil", contact: "+91-1098765432", semester: "Semester 7", department: "AIDS"},
+            "Capstone Project Lecture Notes": {name: "Ruchi Rani", contact: "+91-1987654321", semester: "Semester 8", department: "Computer Science"}
+        };
+        function resetNotesAndDetails() {
+            document.getElementById('textbook-list').innerHTML = ''; // Clear notes list
+            document.getElementById('seller-details').innerHTML = ''; // Clear seller details
+        }
+        document.getElementById('semester').addEventListener('change', function() {
+            const semester = this.value;
+            const subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Reset subjects dropdown
+
+            if (subjectsBySemester[semester]) {
+                subjectsBySemester[semester].forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById('subject').addEventListener('change', function() {
+            resetNotesAndDetails();
+            const subject = this.value;
+            const textbookList = document.getElementById('textbook-list');
+            textbookList.innerHTML = ''; // Reset textbook list
+
+            if (textbooksBySubject[subject]) {
+                textbooksBySubject[subject].forEach(textbook => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = "#seller-details";
+                    a.textContent = textbook;
+                    a.addEventListener('click', function() {
+                        const details = sellerDetails[textbook];
+                        const sellerDetailsDiv = document.getElementById('seller-details');
+                        sellerDetailsDiv.innerHTML = `
+                            <p><strong>Name:</strong> ${details.name}</p>
+                            <p><strong>Contact Number:</strong> ${details.contact}</p>
+                            <p><strong>Semester:</strong> ${details.semester}</p>
+                            <p><strong>Department:</strong> ${details.department}</p>
+                        `;
+                    });
+                    li.appendChild(a);
+                    textbookList.appendChild(li);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
