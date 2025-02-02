@@ -1,25 +1,25 @@
 # MITS REFURBISHED FINDS ♻️✨
 
 
-# 👩‍💻 Team Name: HEXTECH-29
+## 👩‍💻 Team Name: HEXTECH-29
 
 
-# 👥 Team Members: 
+## 👥 Team Members: 
 Team Lead: Jania Jose - Muthoot Institute of Technology and Science.
 Member 2: Gayathri S Menon - Muthoot Institute of Technology and Science.
 Member 3: Harsha Esmayil - Muthoot Institute of Technology and Science.
 
 
-# ♻️ Project Description: At MITS Refurbished Finds, we offer a smart and sustainable way for students to save on college essentials. Our platform features a wide range of second-hand items, including textbooks, past year question papers (PYQs), instruments, and lecture notes, all at unbeatable prices.
+## ♻️ Project Description: At MITS Refurbished Finds, we offer a smart and sustainable way for students to save on college essentials. Our platform features a wide range of second-hand items, including textbooks, past year question papers (PYQs), instruments, and lecture notes, all at unbeatable prices.
 
 
-# 😖 Problem: College education is becoming so restrictive and tight, it's like trying to fit a watermelon through a keyhole. Financial issues are hitting students harder than a surprise pop quiz. With tuition fees soaring and textbook prices resembling luxury handbags, it's no wonder students are feeling the pinch.
+## 😖 Problem: College education is becoming so restrictive and tight, it's like trying to fit a watermelon through a keyhole. Financial issues are hitting students harder than a surprise pop quiz. With tuition fees soaring and textbook prices resembling luxury handbags, it's no wonder students are feeling the pinch.
 
 
-# 😍 Solution: Fear not! Our website is like the ultimate college bazaar meets social club. Picture this: while hunting for that elusive textbook or lab instrument, you accidentally bump into the legendary senior who knows all the exam hacks. Not only do you get the materials you need, but you also gain a study buddy, and maybe even a mentor. So, come for the second-hand treasures, stay for the unexpected friendships, and let the academic adventures begin!
+## 😍 Solution: Fear not! Our website is like the ultimate college bazaar meets social club. Picture this: while hunting for that elusive textbook or lab instrument, you accidentally bump into the legendary senior who knows all the exam hacks. Not only do you get the materials you need, but you also gain a study buddy, and maybe even a mentor. So, come for the second-hand treasures, stay for the unexpected friendships, and let the academic adventures begin!
 
 
-# ✨ TECHNICAL DETAILS:
+## ✨ TECHNICAL DETAILS:
 
 Technologies/Components used for software:
 Languages used: HTML, CSS, JAVASCRIPT.
@@ -27,7 +27,7 @@ Languages used: HTML, CSS, JAVASCRIPT.
 Tools used: VSCODE, Github, Terminal.
 
 
-# 📚 PROJECT DOCUMENTATION:
+## 📚 PROJECT DOCUMENTATION:
 Software: 
 Link to MITS REFURBISHED FINDS WEBSITE: file:///C:/Users/Administrator/OneDrive/Desktop/HEXTECH-29/index.html
 
@@ -58,7 +58,7 @@ User gets to input their semester and subject of the Project of their need. Then
 ![Screenshot 2025-02-02 095832](https://github.com/user-attachments/assets/3d31bacf-75bb-4e24-8cfa-3e282b89d806)
 
 
-# 👥 CONTRIBUTIONS:
+## 👥 CONTRIBUTIONS:
 [Jania Jose]: Did the coding part.
 [Gayathri S Menon]: Created Repositories.
 [Harsha Esmayil]: Implemented the idea and made the README file.
